@@ -6,4 +6,4 @@ Usage:
 
 Imagine the orientation parameter as the orientation of a virtual 'Knife' which is cutting your image into pieces
 
-This usage example assumes that you put the split-img python file in /usr/bin (or your distro's equivalent), it can also be used directly as a python file, if ran as the main script, it takes the parameters above as command line arguments, if you're importing it into your own script, run `split(path, orientation, number of slices)`, or `split_obj(PIL_Image, orientation, number of slices)` which will return a list of PIL image objects
+This usage example assumes that you put the split-img python file in /usr/bin (or your distro's equivalent), it can also be used directly as a python file (you can add '.py' to the file name if you need to), if ran as the main script, it takes the parameters above as command line arguments, if you're importing it into your own script, run `split(path, orientation, number of slices)`, or `split_obj(PIL_Image, orientation, number of slices)` which will return a list of PIL image objects
