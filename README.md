@@ -1,8 +1,7 @@
 # split-img
 Command line tool to split images into equal parts, either vertically or horizontally - it splits the images and then saves them in the same directory with a filename in the format \<original filename\>\<slice number\>.\<original file format\>
 
-Usage:
-  split-img [image path] [slice orientation: 'vertical' or 'horizontal'] [number of slices]
+> Usage: split-img [image path] [slice orientation: 'vertical' or 'horizontal'] [number of slices] 
 
 Imagine the orientation parameter as the orientation of a virtual 'Knife' which is cutting your image into pieces
 
