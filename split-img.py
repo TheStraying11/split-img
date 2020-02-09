@@ -1,0 +1,83 @@
+#! /usr/bin/python3
+from PIL import Image
+from sys import argv
+
+def split(path: "Image Path", direction: "horizontal or vertical", pieces: ("Number of pieces to slice into", int)):
+	img = Image.open(path)
+	x, y = img.size
+	direction = direction.lower()
+
+	if direction == 'vertical':
+		crop_size = x//pieces
+		if x%pieces != 0:
+			print(crop_size)
+			raise ValueError("Image width not integer divisible by desired number of pieces")
+
+		out = []
+
+		for i in range(1, pieces+1):
+			crop_start = crop_size*(i-1)
+			crop_end = crop_size*i
+
+			print((crop_start, y),(crop_end, 0))
+
+			out.append(img.crop((crop_start, 0,crop_end, y)))
+
+		print(out)
+			
+		if path[:(len(path) - path[::-1].find('.') - 1)]+f'.{path[-4:]}' == path:
+			for i, x in enumerate(out):
+				path1 = path[:(len(path) - path[::-1].find('.')) -1]+f'{i}.{path[-4:]}'
+				x.save(path1)
+				print(f'saved file at {path1}')
+
+		elif path[:(len(path) - path[::-1].find('.') - 1)]+f'.{path[-3:]}' == path:
+			for i, x in enumerate(out):
+				path1 = path[:(len(path) - path[::-1].find('.')) -1]+f'{i}.{path[-3:]}'
+				x.save(path1)
+				print(f'saved file at {path1}')
+		else:
+			raise ValueError("File extension seems to be an invalid number of characters?")
+
+	elif direction == 'horizontal':
+		crop_size = y/pieces
+		if y%pieces != 0:
+			raise ValueError("Image width not integer divisible by desired number of pieces")
+
+		out = []
+
+		for i in range(1, pieces+1):
+			crop_start = crop_size*(i-1)
+			crop_end = crop_size*i
+
+			print((0, crop_start), (x, crop_end))
+
+			out.append(img.crop((0, crop_start, x, crop_end)))
+
+		print(out)
+
+		if path[:(len(path) - path[::-1].find('.') - 1)]+f'.{path[-4:]}' == path:
+			for i, x in enumerate(out):
+				path1 = path[:(len(path) - path[::-1].find('.')) -1]+f'{i}.{path[-4:]}'
+				x.save(path1)
+				print(f'saved file at {path1}')
+
+		elif path[:(len(path) - path[::-1].find('.') - 1)]+f'.{path[-3:]}' == path:
+			for i, x in enumerate(out):
+				path1 = path[:(len(path) - path[::-1].find('.')) -1]+f'{i}.{path[-3:]}'
+				x.save(path1)
+				print(f'saved file at {path1}')
+		else:
+			raise ValueError("File extension seems to be an invalid number of characters?")
+
+	else:
+		raise ValueError("Invalid 'Knife' orientation")
+
+if __name__ == '__main__':
+	try:
+		argv[1] = argv[1].replace("file://", "")
+		split(argv[1], argv[2], int(argv[3]))
+	except Exception as e:
+		print(e)
+		print('''Usage:
+	\tsplit-img [image path] [slice orientation: 'vertical' or 'horizontal'] [number of slices]''')
